@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="create_admin">
+    <h1 class="Title_Admin_create_form">Phiếu thêm sản phẩm vào kho hàng</h1>
+    <p class="Notification_create_form">Vui lòng điền thông tin bên dưới</p>
+    @using (Html.BeginForm("Create", "PhieuNhapKho", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-1", @class = "create_admin_form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form_field">
+            <label for="" class="name_form_field">Mã phiếu nhập kho : </label>
+            <input type="text" class="textfile" readonly value="@ViewBag.MAPK" name="MAPHIEUNK">
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Ngày nhập kho: </label>
+            <input type="date" class="textfile" id="ngay" name="NGAYNK">
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Sản phẩm : </label>
+            <select class="textfile" name="MASP" id="sanpham">
+                <option value="">Chọn sản phẩm</option>
+                @foreach (var item in ViewBag.SANPHAM)
+                {
+                    <option value="@item.MASP">@item.TENSP</option>
+                }
+            </select>
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Số lượng nhập vào: </label>
+            <input type="number" class="textfile" id="soluong" name="SOLUONG">
+            <span class="error_message"></span>
+        </div>
+        <div class="button">
+            <input type="submit" value="Nhập" class="button_add_admin" />
+            <a href="@Url.Action("Index","PhieuNhapKho")"><input type="button" value="Quay lại" class="button_add_admin" /></a>
+        </div>
+    }
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mong muốn của chúng ta
+        Validator({
+            form: '#form-1',
+            formGroupSelector: '.form_field',
+            errorSelector: '.error_message',
+            rules: [
+                Validator.isRequired('#soluong', 'Vui lòng nhập số !'),
+                Validator.isRong('#sanpham', 'Vui lòng chọn sản phẩm !'),
+            ],
+            onSubmit: function (data) {
+                // Call API
+                //console.log(data);
+            }
+        });
+    });
+</script>
+

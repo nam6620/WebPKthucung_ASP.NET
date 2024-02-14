@@ -1,0 +1,95 @@
+﻿@model WebPKthucung.Models.ADMIN
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="create_admin">
+    <h1 class="Title_Admin_create_form">Sửa thông tin tài khoản quản trị viên</h1>
+    <p class="Notification_create_form">Vui lòng điền thông tin bên dưới</p>
+    @using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-1", @class = "create_admin_form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form_field">
+            <label for="" class="name_form_field">Mã Admin : </label>
+            <input type="text" class="textfile" readonly value="@Model.MAADMIN">
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Họ tên Admin : </label>
+            <input type="text" class="textfile" id="fullname" name="HOTEN" value="@Model.HOTEN">
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Địa chỉ : </label>
+            <textarea class="textfile_address" cols="2" id="address" name="DIACHI">@Model.DIACHI</textarea>
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Số điện thoại : </label>
+            <input type="text" class="textfile" id="phoneNumber" name="DIENTHOAI" value="@Model.DIENTHOAI">
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Email : </label>
+            <input type="text" class="textfile" id="email" name="EMAIL" value="@Model.EMAIL">
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Loại tài khoản : </label>
+            <select class="textfile" name="MALOAI">
+                @foreach (var item in @ViewBag.loaiTk)
+                {
+                    if (item.MALOAI == Model.MALOAI)
+                    {
+                        <option value="@item.MALOAI" selected>@item.TENLOAI</option>
+                    }
+                    else
+                    {
+                        <option value="@item.MALOAI">@item.TENLOAI</option>
+                    }
+
+                }
+            </select>
+
+        </div>
+
+        <div class="form_field">
+            <label for="" class="name_form_field">Ảnh đại diện : </label>
+            <div class="custom-file">
+                <div class="form_field">
+                    <input value="@Url.Content("~/assest/img/ad_user/" + @Model.AVATAR)" type="file" class="custom-file-input" id="img_profile_admin" name="fileUpload" >
+                    <span class="error_message"></span>
+                </div>
+                <div class="custom-file-img">
+                    <img src="~/assest/img/ad_user/@Model.AVATAR" alt="" id="custom-file-img-display">
+                </div>
+            </div>
+        </div>
+        <div class="button">
+            <input type="submit" value="Cập nhật" class="button_add_admin" />
+            <a href="@Url.Action("DSAdmin","Admin")"><input type="button" value="Quay lại" class="button_add_admin" /></a>
+        </div>
+    }
+</div>
+<script>
+    var dsUserName = @Html.Raw(Json.Encode(ViewBag.dsUserName));
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mong muốn của chúng ta
+        Validator({
+            form: '#form-1',
+            formGroupSelector: '.form_field',
+            errorSelector: '.error_message',
+            rules: [
+                Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ!'),
+                Validator.isRequired('#address', 'Vui lòng nhập địa chỉ!'),
+                Validator.isRequired('#phoneNumber', 'Vui lòng nhập số điện thoại!'),
+                Validator.isRequired('#email', 'Vui lòng nhập Email!'),
+                //Validator.isRequired('#img_profile_admin', 'Vui lòng chọn hình ảnh đại diện!'),
+                Validator.isEmail('#email'),
+            ],
+            onSubmit: function (data) {
+                // Call API
+                //console.log(data);
+            }
+        });
+    });
+</script>

@@ -1,0 +1,103 @@
+﻿@using WebPKthucung.Models
+@model List<GioHang>
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+}
+
+<h6 >Trang Chủ > Giỏ Hàng Của Bạn</h6>
+<div class="cart_title">GIỎ HÀNG CỦA BẠN</div>
+<div class="yellow_space"></div>
+<div class="cart">
+    <div class="cart_table">
+        <div class="header_table">
+            <div class="header_table_title" style="width: 40%;">
+                SẢN PHẨM
+            </div>
+            <div class="header_table_title" style="width: 15%">
+                GIÁ
+            </div>
+            <div class="header_table_title" style="width: 15%">
+                SỐ LƯỢNG
+            </div>
+            <div class="header_table_title" style="width: 15%">
+                GIẢM GIÁ
+            </div>
+            <div class="header_table_title" style="width: 10%">
+                THÀNH TIỀN
+            </div>
+            <div class="header_table_title" style="width: 5%">
+
+            </div>
+        </div>
+        <div class="body_table">
+            @foreach (var item in Model)
+            {
+                <div class="body_table_item">
+                    <div class="body_table_title body_table_title_sanpham" style="width: 37%;">
+                        <img src="~/assest/img/sanpham/@item.gHINHANH" alt="" style="height: 120px; width: 90px;">
+                        <div class="decription_product">
+                            <div>
+                                <a href="" class="title_product_cart" style="color: black">
+                                    @item.gTENSP
+                                </a>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <a href="" class="th_product_cart" style="color: #0b84ee; font-weight: 700; ">
+                                    @item.gTHUONGHIEU
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="body_table_title" style="width: 15%; font-weight: 700;">
+                        @String.Format("{0:0,0}", item.dDONGIA) VNĐ 
+                    </div>
+                    <div class="body_table_title " style="width: 15%">
+                        <div class="body_table_title_soluong">
+                            <div onclick="window.location.href='@Url.Action("botSanPhamGiohang", "GioHang", new { @iMASP = item.iMASP, @strURL = Request.Url.ToString() })'">
+                                <i class="fa-solid fa-minus"></i>
+                            </div>
+                            <div>
+                                @item.iSOLUONG
+                            </div>
+                            <div onclick="window.location.href='@Url.Action("ThemGiohang", "GioHang", new { @iMASP = item.iMASP, @strURL = Request.Url.ToString() })'">
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body_table_title" style="width: 15%">
+                        @item.iGIAMGIA %
+                    </div>
+                    <div class="body_table_title" style="width: 10%; font-weight: 700; ">
+                        @String.Format("{0:0,0}", item.dTHANHTIEN) VNĐ 
+                    </div>
+                    <div class="body_table_title" style="min-width: 5%;" onclick="window.location.href='@Url.Action("XoaGiohang", "GioHang", new { @iMASP = item.iMASP })'">
+                        <i class="fa-solid fa-x"></i>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="cart_checkcout" style="width: 350px;">
+        <h6 style="margin-top: 0">TỔNG SỐ TIỀN</h6>
+        <div class="cart_checkcout_title">
+            <div>Tổng số tiền:</div>
+            <div>@String.Format("{0:0,0}", ViewBag.Tongtien) VNĐ</div>
+        </div>
+        <div>
+            @Html.Action("PhieuGiamGia", "GioHang")
+        </div>
+        <div class="cart_checkcout_title">
+            <div>Tổng :</div>
+            <div>@String.Format("{0:0,0}", ViewBag.TongTienSauGiamGia) VNĐ</div>
+        </div>
+        <a href="@Url.Action("DatHang", "GioHang")"><button>Đặt Hàng</button></a>
+        <button>Tiếp Tục Mua Sắm</button>
+        <button onclick="window.location.href = '@Url.Action("XoaTatcaGiohang", "GioHang")'">Xóa Tất Cả Sản Phẩm</button>
+    </div>
+
+</div>
+<textarea name="" id="" rows="5" class="note_cart" placeholder="Ghi chú khi mua hàng......."></textarea>
+

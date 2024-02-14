@@ -1,0 +1,45 @@
+﻿@model WebPKthucung.Models.MAUSAC
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    string hienthi = "";
+}
+
+<div class="detail_admin">
+    <h1 class="Title_Admin_create_form">Bạn có muốn xóa màu này ?</h1>
+    @using (Html.BeginForm("Delete", "MauSac", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        <div class="detai_admin_form">
+            <div class="detail_admin_right">
+                <table class="Table_Details_Admin">
+                    <tr>
+                        <td>Mã thương hiệu: </td>
+                        <td>@Model.MAMAUSAC</td>
+                    </tr>
+                    <tr>
+                        <td>Tên thương hiệu:</td>
+                        <td>@Model.TENMAUSAC</td>
+                    </tr>
+                    <tr>
+                        <td>Hiển thị:</td>
+                        @if (Model.ANHHIEN == true)
+                        {
+                            hienthi = " hiển thị";
+                        }
+                        else
+                        {
+                            hienthi = " ẩn";
+                        }
+                        <td>@hienthi</td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+        <div class="button">
+            <input type="submit" value="Xóa" class="button_add_admin delete_display_alert" />
+            <a href="@Url.Action("Index","MauSac")"><input type="button" value="Quay lại" class="button_add_admin" /></a>
+        </div>
+    }
+</div>

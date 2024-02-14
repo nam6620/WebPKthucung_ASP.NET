@@ -1,0 +1,104 @@
+﻿    @using PagedList.Mvc;
+@model PagedList.PagedList<WebPKthucung.Models.SANPHAM>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="table_header">
+    <div class="search">
+        <a href="#">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <div class="search_title">
+                Tìm kiếm nhanh
+            </div>
+        </a>
+    </div>
+    <div class="add_admin">
+        <a href="@Url.Action("Create","SanPham")">
+            <i class="fa-solid fa-user-plus"></i>
+            <div class="add_title">
+                Thêm sản phẩm
+            </div>
+        </a>
+    </div>
+</div>
+<table class="table_dsadmin">
+    <thead>
+        <tr>
+            <th style="width: 65px;">Mã San Phẩm </th>
+            <th style="width: 180px;">Tên Sản Phẩm</th>
+            <th style="width: 84px;">Giá mua</th>
+            <th style="width: 84px;">Giá bán</th>
+            <th style="width: 170px;">Thương hiệu</th>
+            <th style="width: 100px;">Loại</th>
+            @*<th style="width: 75px;">Màu sắc</th>*@
+            <th style="width: 70px;">Số lượng</th>
+            <th style="width: 250px;">Mô tả</th>
+            <th style="width: 70px;">Hình ảnh</th>
+            <th style="width: 90px;">Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MASP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TENSP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DONGIAMUA) đ
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DONGIABAN) đ
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.THUONGHIEU.TENTH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LOAI.TENLOAI)
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.MAUSAC.TENMAUSAC)
+        </td>*@
+
+                <td style="width: 200px">
+                    @Html.DisplayFor(modelItem => item.SOLUONG)
+                </td>
+                <td>
+                    <div class="mota">
+                        @Html.DisplayFor(modelItem => item.MOTA)
+                    </div>
+
+                </td>
+                <td>
+                    <img src="@Url.Content("~/assest/img/sanpham/" + item.HINHANH)" alt="" style="width: 70px; height: 70px;">
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit","SanPham", new { id = item.MASP })"><i class="fa-solid fa-pen-to-square edit"></i></a>
+                    <a href="@Url.Action("Delete","SanPham", new { id = item.MASP })"> <i class="fa-solid fa-xmark remove"></i></a>
+                    <a href="@Url.Action("Detail","SanPham", new { id = item.MASP })"><i class="fa-solid fa-circle-info detail"></i></a>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+@*<div align="center">@Html.PagedListPager(Model, page => Url.Action("DSAdmin", new { page = page }))</div>*@
+
+<ul class="page">
+    @if (Model.PageCount > 1)
+    {
+        for (int i = 1; i <= Model.PageCount; i++)
+        {
+            <li>
+                <a href="@Url.Action("Index", new { page = i })" class="@((i == Model.PageNumber) ? "page_button page_button_active" : "page_button")">@i</a>
+            </li>
+        }
+    }
+</ul>
+

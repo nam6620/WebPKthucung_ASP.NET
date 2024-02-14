@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "QuenMK";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+}
+
+<h6 style="margin-bottom: 40px">Trang chủ  > Quên mật khẩu </h6>
+<div class="create_admin" style="margin-bottom: 300px">
+    <h1 class="Title_Admin_create_form">Bạn đã quên mât khẩu</h1>
+    <p class="Notification_create_form">Vui lòng điền email để reset mật khẩu</p>
+    @using (Html.BeginForm("QuenMK", "Users", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-6", @class = "create_admin_form" }))
+    {
+        <div class="form_field">
+            <label for="" class="name_form_field">Nhập email tài khoản: </label>
+            <input type="text" class="textfile" id="email" name="quenMK" style="width: 400px;">
+            <span class="error_message">@ViewBag.message</span>
+        </div>
+        <h6 style="color: forestgreen">@ViewBag.TB</h6>
+        <div class="button">
+            <input type="submit" value="Đặt lại mật khẩu" class="button_add_admin" style="width: 150px" />
+        </div>
+    }
+</div>
+<script src="~/assest/js/app.js"></script>
+<script src="~/assest/js/app1.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mong muốn của chúng ta
+        Validator({
+            form: '#form-6',
+            formGroupSelector: '.form_field',
+            errorSelector: '.error_message',
+            rules: [
+                Validator.isRequired('#email', 'Vui lòng nhập Email!'),
+                Validator.isEmail('#email'),
+            ],
+            onSubmit: function (data) {
+                // Call API
+                //console.log(data);
+            }
+        });
+    });
+</script>
+
+
+

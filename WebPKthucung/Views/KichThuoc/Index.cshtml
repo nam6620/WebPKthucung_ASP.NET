@@ -1,0 +1,58 @@
+﻿@using PagedList.Mvc;
+@model PagedList.PagedList<WebPKthucung.Models.KICHTHUOC>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="table_header">
+    <div class="add_admin">
+        <a href="@Url.Action("Create","KichThuoc")">
+            <i class="fa-solid fa-user-plus"></i>
+            <div class="add_title">
+                Thêm loại
+            </div>
+        </a>
+    </div>
+</div>
+<table class="table_dsadmin">
+    <thead>
+        <tr>
+            <th style="width: 65px;">Mã loại</th>
+            <th style="width: 120px;">Tên Loại</th>
+            <th style="width: 80px;">Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr style="height: 50px;">
+                <td>
+                    @Html.DisplayFor(modelItem => item.MASP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TENKICHTHUOC)
+                </td>
+
+                <td>
+                    <a href="@Url.Action("Edit","KichThuoc", new { id = item.MAKICHTHUOC })"><i class="fa-solid fa-pen-to-square edit"></i></a>
+                    <a href="@Url.Action("Delete","KichThuoc", new { id = item.MAKICHTHUOC })"> <i class="fa-solid fa-xmark remove"></i></a>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+<ul class="page">
+    @if (Model.PageCount > 1)
+    {
+        for (int i = 1; i <= Model.PageCount; i++)
+        {
+            <li>
+                <a href="@Url.Action("Index", new { page = i })" class="@((i == Model.PageNumber) ? "page_button page_button_active" : "page_button")">@i</a>
+            </li>
+        }
+    }
+</ul>
+

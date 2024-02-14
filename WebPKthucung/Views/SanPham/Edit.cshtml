@@ -1,0 +1,138 @@
+﻿@model WebPKthucung.Models.SANPHAM
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="create_admin">
+    <h1 class="Title_Admin_create_form">Thêm tài khoản quản trị viên</h1>
+    <p class="Notification_create_form">Vui lòng điền thông tin bên dưới</p>
+    @using (Html.BeginForm("Edit", "SanPham", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-1", @class = "create_admin_form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form_field">
+            <label for="" class="name_form_field">Mã sản phẩm : </label>
+            <input type="text" class="textfile" readonly value="@Model.MASP" name="MASP">
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Tên sản phẩm : </label>
+            <input type="text" class="textfile" id="fullname" name="TENSP" value="@Model.TENSP">
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Đơn giá mua : </label>
+            <input type="number" class="textfile" id="giamua" name="DONGIAMUA" value="@Model.DONGIAMUA">
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Đơn giá bán : </label>
+            <input type="number" class="textfile" id="giaban" name="DONGIABAN" value="@Model.DONGIABAN">
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Thương hiệu : </label>
+            <select class="textfile" name="MATH" id="thuonghieu">
+
+                @foreach (var item in ViewBag.ThuongHieu)
+                {
+                    if (Model.MATH == item.MATH)
+                    {
+                        <option value="@item.MATH" selected>@item.TENTH</option>
+                    }
+                    else
+                    {
+                        <option value="@item.MATH">@item.TENTH</option>
+                    }
+
+                }
+            </select>
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Loại : </label>
+            <select class="textfile" name="MALOAI">
+                <option value="">Chọn loại</option>
+                @foreach (var item in ViewBag.Loai)
+                {
+                    if (Model.MALOAI == item.MALOAI)
+                    {
+                        <option value="@item.MALOAI" selected>@item.TENLOAI</option>
+                    }
+                    else
+                    {
+                        <option value="@item.MALOAI">@item.TENLOAI</option>
+                    }
+                }
+            </select>
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Màu sắc : </label>
+            <select class="textfile" name="MAMAUSAC">
+                <option value="">Chọn màu sắc</option>
+                @foreach (var item in ViewBag.MauSac)
+                {
+                    if (Model.MAMAUSAC == item.MAMAUSAC)
+                    {
+                        <option value="@item.MAMAUSAC" selected>@item.TENMAUSAC</option>
+                    }
+                    else
+                    {
+                        <option value="@item.MAMAUSAC">@item.TENMAUSAC</option>
+                    }
+                }
+            </select>
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Số lượng : </label>
+            <input type="number" class="textfile" id="soluong" name="SOLUONG" value="@Model.SOLUONG">
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Mô tả : </label>
+            <textarea class="textfile_address" cols="2" id="address" name="MOTA">@Model.MOTA</textarea>
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Ảnh đại diện : </label>
+            <div class="custom-file">
+                <div class="form_field">
+                    <input type="file" class="custom-file-input" id="img_profile_admin" name="fileUpload" value="@Url.Content("~/assest/img/sanpham/" + @Model.HINHANH)">
+                    <span class="error_message"></span>
+                </div>
+                <div class="custom-file-img">
+                    <img src="~/assest/img/sanpham/@Model.HINHANH" alt="" id="custom-file-img-display">
+                </div>
+            </div>
+        </div>
+        <div class="button">
+            <input type="submit" value="Cập nhật" class="button_add_admin" />
+            <a href="@Url.Action("Index","SanPham")"><input type="button" value="Quay lại" class="button_add_admin" /></a>
+        </div>
+    }
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mong muốn của chúng ta
+        Validator({
+            form: '#form-1',
+            formGroupSelector: '.form_field',
+            errorSelector: '.error_message',
+            rules: [
+                Validator.isRequired('#fullname', 'Vui lòng nhập tên sản phẩm!'),
+                Validator.isRequired('#giamua', 'Vui lòng nhập giá mua!'),
+                Validator.isRequired('#giaban', 'Vui lòng nhập giá bán!'),
+                Validator.isRequired('#soluong', 'Vui lòng nhập số lượng!'),
+                Validator.isLessZero('#giamua', 'Vui lòng nhập giá mua lớn hơn hoặc bằng không'),
+                Validator.isLessZero('#giaban', 'Vui lòng nhập giá bán lớn hơn hoặc bằng không'),
+                Validator.isLessZero('#soluong', 'Vui lòng nhập số lượng lớn hơn không'),
+                Validator.isRong('#thuonghieu', 'Vui lòng chọn thương hiệu')
+            ],
+            onSubmit: function (data) {
+                // Call API
+                //console.log(data);
+            }
+        });
+    });
+</script>

@@ -1,0 +1,235 @@
+﻿
+@{
+    ViewBag.Title = "dangky";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+}
+<h6>Trang chủ  > Đăng ký </h6>
+<div class="create_admin">
+    <h1 class="Title_Admin_create_form">Tạo tài khoản </h1>
+    <p class="Notification_create_form">Vui lòng điền thông tin bên dưới</p>
+    @using (Html.BeginForm("dangky", "Users", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-10", @class = "create_admin_form" }))
+    {
+        <div class="form_field">
+            <label for="" class="name_form_field">Họ tên: </label>
+            <input type="text" class="textfile" id="fullname" name="HOTENKH" style="width: 400px;">
+            <span class="error_message"></span>
+        </div>
+
+        <div class="form_field">
+            <label for="" class="name_form_field">Số điện thoại : </label>
+            <input type="text" class="textfile" id="phoneNumber" name="DIENTHOAI" style="width: 400px;">
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Email : </label>
+            <input type="text" class="textfile" id="email" name="EMAIL" style="width: 400px;">
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Ngày sinh : </label>
+            <input type="date" class="textfile" id="birthDay" name="NGAYSINH" style="width: 400px;">
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Tên đăng nhập : </label>
+            <input type="text" class="textfile" id="userName" name="TENDNKH" style="width: 400px;">
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Mật khẩu : </label>
+            <input type="password" class="textfile" id="password" name="MATKHAUKH" style="width: 400px;">
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Xác nhận lại mật khẩu : </label>
+            <input type="password" class="textfile" id="password_confirmation" style="width: 400px;">
+            <span class="error_message"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between; width: 400px;">
+            <div class="form_field">
+                <label for="" class="name_form_field">Tỉnh : </label>
+                <select class="textfile" name="MATINH" style="width: 195px;" id="Tinh">
+                    <option value="">Chọn tỉnh/Thành phố</option>
+                    @foreach (var item in ViewBag.dsTinh)
+                    {
+                        <option value="@item.MATINH">@item.TENTINH</option>
+                    }
+
+                </select>
+                <span class="error_message"></span>
+            </div>
+
+            <div class="form_field">
+                <label for="" class="name_form_field">Huyện : </label>
+                <select class="textfile" name="MAHUYEN" style="width: 195px;" id="Huyen" disabled>
+
+                    <option value="">Chọn huyện</option>
+                </select>
+                <span class="error_message"></span>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; width: 400px;">
+            <div class="form_field">
+                <label for="" class="name_form_field">Xã : </label>
+                <select class="textfile" name="MAXA" style="width: 195px;" id="Xa" disabled>
+                    <option value="">Chọn xã</option>
+                </select>
+                <span class="error_message"></span>
+            </div>
+
+            <div class="form_field">
+                <label for="" class="name_form_field">Số nhà và tên đường : </label>
+                <input type="text" class="textfile" style="width: 195px;" id="address" name="DAICHI">
+                <span class="error_message"></span>
+            </div>
+        </div>
+
+        <div class="form_field" style="max-width: 400px">
+            <label for="" class="name_form_field">Ảnh đại diện : </label>
+            <div class="custom-file">
+                <div class="form_field">
+                    <input type="file" class="custom-file-input" id="img_profile_admin" name="fileUpload" style="max-width: 300px;">
+                    <span class="error_message"></span>
+                </div>
+                <div class="custom-file-img">
+                    <img src="" alt="" id="custom-file-img-display">
+                </div>
+            </div>
+        </div>
+        <div class="button">
+            <input type="submit" value="Đăng ký" class="button_add_admin" />
+        </div>
+    }
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    var dsUserName = @Html.Raw(Json.Encode(ViewBag.dsTaiKhoan));
+    var dsSDT = @Html.Raw(Json.Encode(ViewBag.dsSDT));
+    var dsEmail = @Html.Raw(Json.Encode(ViewBag.dsEmail));
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mong muốn của chúng ta
+        Validator({
+            form: '#form-10',
+            formGroupSelector: '.form_field',
+            errorSelector: '.error_message',
+            rules: [
+                Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ!'),
+                Validator.isRequired('#address', 'Vui lòng nhập địa chỉ!'),
+                Validator.isRequired('#phoneNumber', 'Vui lòng nhập số điện thoại!'),
+                Validator.isRequired('#email', 'Vui lòng nhập Email!'),
+                Validator.isRequired('#userName', 'Vui lòng nhập tài khoản!'),
+                Validator.isRequired('#password', 'Vui lòng nhập mật khẩu!'),
+                Validator.isRequired('#password_confirmation', 'Vui lòng nhập lại mật khẩu xác nhận!'),
+                Validator.isRequired('#birthDay', 'Vui lòng chọn ngày sinh!'),
+                Validator.minLength('#password', @ViewBag.minPassword),
+                Validator.maxLength('#password', @ViewBag.maxPassword),
+                Validator.isEmail('#email'),
+                Validator.isRequired('#password_confirmation'),
+                Validator.isConfirmed('#password_confirmation', function () {
+                    return document.querySelector('#form-10 #password').value;
+                }, 'Mật khẩu nhập lại không chính xác'),
+                Validator.isExistUserLogin('#userName', dsUserName),
+                Validator.isExistUserLogin('#phoneNumber', dsSDT, 'Số điện thoại đã tồn tại!'),
+                Validator.isExistUserLogin('#email', dsEmail, 'Email đã tồn tại!'),
+                Validator.checkDate('#birthDay'),
+            ],
+            onSubmit: function (data) {
+                // Call API
+                //console.log(data);
+            }
+        });
+        $('#Tinh').change(
+            function myfunction() {
+                var tinh = $(this).val();
+                console.log(tinh)
+                $.ajax({
+                    url: '/Users/GetDistricts',
+                    type: 'GET',
+                    data: { maTinh: tinh },
+                    // Thay 'DL' bằng mã tỉnh bạn muốn truy vấn
+                    success: function (response) {
+                        if (response.success) {
+                            var districts = response.data;
+                            districts.forEach(function (district) {
+                                var html = '<option value="' + district.MAHUYEN + '">' + district.TENHUYEN + '</option>';
+                                $('#Huyen').append(html);
+                                $("#Huyen").prop("disabled", false);
+                            })
+                        } else {
+                            console.log(response.error);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    },
+                });
+            }
+        );
+        $('#Huyen').change(
+            function () {
+                var huyen = $(this).val();
+                console.log(huyen)
+                $.ajax({
+                    url: '/Users/GetXa',
+                    type: 'GET',
+                    data: { maHuyen: huyen },
+                    // Thay 'DL' bằng mã tỉnh bạn muốn truy vấn
+                    success: function (response) {
+                        if (response.success) {
+                            var districts = response.data;
+                            districts.forEach(function (district) {
+                                var html = '<option value="' + district.MAXA + '">' + district.TENXA + '</option>';
+                                $('#Xa').append(html);
+                                $("#Xa").prop("disabled", false);
+                            })
+                        } else {
+                            console.log(response.error);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    },
+                });
+            }
+        );
+    });
+    const img_avatar_register_admin = document.querySelector("#img_profile_admin");
+    const custom_file_img_display = document.querySelector("#custom-file-img-display");
+    img_avatar_register_admin.onchange = function (e) {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            custom_file_img_display.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    };
+    //xử lý lấy mã các tỉnh
+    // Hàm xử lý khi thay đổi giá trị của input Tinh
+    function getSelectedXa() {
+        var huyen = $('#Huyen').val();
+        console.log(huyen)
+        $.ajax({
+            url: '/Users/GetXa',
+            type: 'GET',
+            data: { maHuyen: huyen },
+            // Thay 'DL' bằng mã tỉnh bạn muốn truy vấn
+            success: function (response) {
+                if (response.success) {
+                    var districts = response.data;
+                    districts.forEach(function (district) {
+                        var html = '<option value="' + district.MAXA + '">' + district.TENXA + '</option>';
+                        $('#Xa').append(html);
+                        $("#Xa").prop("disabled", false);
+                    })
+                } else {
+                    console.log(response.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            },
+        });
+    }
+</script>
+

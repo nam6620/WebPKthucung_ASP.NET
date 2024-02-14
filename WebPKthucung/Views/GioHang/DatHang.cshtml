@@ -1,0 +1,70 @@
+﻿@using WebPKthucung.Models
+@model List<WebPKthucung.Models.GioHang>
+@{
+    ViewBag.Title = "DonDatHang";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+    KHANHHANG kh = (KHANHHANG)Session["Taikhoan"];
+    DONDATHANG ddh;
+}
+<div class="thanhToan">
+    <div class="thanhToan_user">
+            @using (Html.BeginForm("DatHang", "GioHang", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-1", @class = "create_admin_form" }))
+            {
+                <h1 class="Title_Admin_create_form">Thông tin đơn đặt hàng</h1>
+                <p class="Notification_create_form">Vui lòng kiểm tra thông tin</p>
+                <div style="display: flex;">
+                    <div class="form_field" style="margin-right: 20px; ">
+                        <label for="" class="name_form_field">Họ tên: </label>
+                        <input type="text" value="@kh.HOTENKH" class="textfile" id="fullname" style="width: 400px; border-radius: 10px;">
+                        <span class="error_message"></span>
+                    </div>
+                    <div class="form_field">
+                        <label for="" class="name_form_field">Số điện thoại : </label>
+                        <input type="text" value="@kh.DIENTHOAI" class="textfile" id="phoneNumber"  style="width: 180px;  border-radius: 10px;">
+                        <span class="error_message"></span>
+                    </div>
+                </div>
+
+                <div class="form_field">
+                    <label for="" class="name_form_field">Email : </label>
+                    <input type="text" value="@kh.EMAIL" class="textfile" id="email" style="width: 600px; border-radius: 10px;">
+                    <span class="error_message"></span>
+                </div>
+                <div class="form_field">
+                    <label for="" class="name_form_field">Địa chỉ : </label>
+                    <textarea class="textfile_address" cols="2" id="address"  style="width: 600px;  border-radius: 10px;">@ViewBag.DiaChi</textarea>
+                    <span class="error_message"></span>
+                </div>
+                <div class="form_field">
+                    <label for="" class="name_form_field">Chọn phương thức thanh toán : </label>
+                    <select class="textfile"  style="width: 400px; border-radius: 10px;">
+                        <option>Thanh toán khi nhận hàng</option>
+                        <option>Thanh toán bằng hình thức chuyển khoản</option>
+                    </select>
+                </div>
+                <div class="button">
+                    <input type="submit" value="Đặt hàng" class="button_add_admin" style="width: 200px;" />
+                    <input type="button" value="Quay chở lại giỏ hàng" class="button_add_admin" style="width: 200px; " />
+                </div>
+            }
+    </div>
+    <div class="thanhToan_cart">
+        <h1 class="Title_Admin_create_form" style="font-size: 26px;">Thông tin chi tiết đơn hàng</h1>
+        @foreach (var item in Model)
+        {
+            <div class="thanhToan_cart_list_item">
+                <img src="~/assest/img/sanpham/@item.gHINHANH" alt="" style="width: 64px; height: 66px; margin-right: 20px;">
+                <div class="thanhToan_cart_list_item_title" style="max-width: 250px;">
+                    @item.gTENSP
+                </div>
+                <div class="thanhToan_cart_list_item_soluong" style="min-width: 50px; margin-left: 10px;">
+                    @item.iSOLUONG
+                </div>
+                <div class="thanhToan_cart_list_item_gia" style="min-width: 100px;">
+                    @String.Format("{0:0,0}", item.dTHANHTIEN) VNĐ
+                </div>
+            </div>
+        }
+    <div class="thanhToan_cart_tong">Tổng tiền: @String.Format("{0:0,0}", ViewBag.Tongtien)  VNĐ</div>
+    </div>
+</div>

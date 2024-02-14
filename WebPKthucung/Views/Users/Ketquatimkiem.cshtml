@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Ketquatimkiem";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+}
+
+<h2 style="text-align: center;">Danh Sách Tìm Kiếm</h2>
+<div class="timKiem_page">
+
+    <div class="timKiem_page_left">
+        <div class="catalog_timKiem">
+            <h6>CATEGORIES</h6>
+            <ul>
+                <li>
+                    <a href="">
+                        Chó
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        Mèo
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        Thiết bị thông minh
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        Hàng mới về
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="catalog_timKiem">
+            <h6>THƯƠNG HIỆU</h6>
+            <ul>
+                @foreach (var item in ViewBag.THUONGHIEU)
+                {
+                    <li>
+                        <a href="">
+                            @item.TENTH
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="timKiem_page_right" style="width: 80%;">
+        <div class="product_list">
+            <div class="grid">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="product_item product_item_timkiem">
+                            <img src="@Url.Content("~/assest/img/sanpham/" + item.HINHANH)" alt="">
+                            <div class="product_thuonghieu">
+                                <h5>@item.TENTH</h5>
+                            </div>
+                            <div class="product_name">
+                                <h5>@item.TENSP</h5>
+                            </div>
+                            <div class="product_price">
+                                <h5> <h5> @String.Format("{0:0,0}", item.DONGIABAN) VNĐ</h5></h5>
+                            </div>
+                            @if (item.SOLUONG > 0)
+                            {
+                                <button id="1" class="button_product" onclick="window.location.href='@Url.Action("ThemGiohang", "GioHang", new { @iMASP = item.MASP, @iGIAMGIA = item.GIAMGIA, @strURL = Request.Url.ToString() })'">Thêm vào giỏ hàng</button>
+                            }
+                            else
+                            {
+                                <button class="button_product">Hàng tạm thời hết</button>
+                            }
+                            <div class="xem_icon">
+                                <a href="@Url.Action("chitiet", "Users", new { id = item.MASP })"><i class="fa-regular fa-eye"></i></a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

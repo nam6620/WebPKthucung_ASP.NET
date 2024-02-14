@@ -1,0 +1,93 @@
+﻿@model IEnumerable<WebPKthucung.Models.Customer>
+@{
+    ViewBag.Title = "PrintList1";
+    Layout = null;
+    int i = 0;
+}
+<div style="display: flex; justify-content: center">
+    <div>
+        <link href="~/Content/print.css" rel="stylesheet" />
+        <title>Bản in</title>
+        <table id='tb_main_title' style='border-collapse: collapse;' name='tb_main_title' width='700' class="table-print-title">
+            <tr>
+                <th align='left' class='bold main_title'>
+                    CÔNG TY TNHH PADDYSHOP
+                </th>
+            </tr>
+            <tr>
+                <th align='center' class='bold main_title' style='height:35px'>
+                    DANH SÁCH KHÁCH HÀNG
+                </th>
+            </tr>
+        </table>
+        <br />
+        <table id='tb_main_body' style='border-collapse: collapse;' name='tb_main_body' width='700' class="table-print" border="1">
+            <tr>
+                <th>
+                    STT
+                </th>
+                <th>
+                    Mã khách hàng
+                </th>
+                <th>
+                    Họ tên
+                </th>
+                <th>
+                    Địa chỉ
+                </th>
+                <th align="center">
+                    Số điện thoại
+                </th>
+                <th>
+                    Ngày sinh
+                </th>
+                <th>
+                    Email
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td align="center">
+                        @{i++;}
+                        @i
+                    </td>
+                    <td>
+                        @item.MAKH
+                    </td>
+                    <td>
+                        @item.HOTENKH
+                    </td>
+                    <td>
+                        @item.iDIACHI
+                    </td>
+                    <td>
+                        @item.DIENTHOAI
+                    </td>
+                    <td>
+                        @item.NGAYSINH
+                    </td>
+                </tr>
+            }
+        </table>
+        @{
+            var ngayIn = " ngày " + DateTime.Now.Day.ToString() + " tháng " + DateTime.Now.Month.ToString() + " năm " + DateTime.Now.Year.ToString();
+        }
+        <table id='tb_footer' name='tb_footer' width='700' border="0" class="fixheader">
+            <tr>
+                <td align='left' width='30%'></td>
+                <td align='center' width='30%'></td>
+                <td align='center' class='sign italic'>
+                    Khánh Hòa, @ngayIn
+                </td>
+            </tr>
+            <tr>
+                <td align='center' width='30%' class='bold'>Giám đốc</td>
+                <td align='center' width='30%' class='bold'>Kế toán</td>
+                <td align='center' class='bold'>Người lập danh sách </td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+

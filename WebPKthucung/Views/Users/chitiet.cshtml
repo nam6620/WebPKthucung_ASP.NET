@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "chitiet";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+}
+
+<div class="chiTietSanPham">
+    <div class="chiTietSanPham_left">
+        <img src="@Url.Content("~/assest/img/sanpham/" + Model.HINHANH)" alt="" style="width:700px; height:700px">
+    </div>
+    <div class="chiTietSanPham_right">
+        <h4>@Model.TENSP</h4>
+        <p>Thương hiệu: @Model.TENTH</p>
+        <div class="gia">
+            <h5>@Model.DONGIABAN ₫</h5>
+        </div>
+        <h5>Số lượng còn: @Model.SOLUONG sản phẩm</h5>
+        @if (Model.SOLUONG > 0)
+        {
+            <button class="button_product_chiTiet" onclick="window.location.href='@Url.Action("ThemGiohang", "GioHang", new { @iMASP = Model.MASP, @iGIAMGIA = Model.GIAMGIA, @strURL = Request.Url.ToString() })'">Thêm vào giỏ hàng</button>
+        }
+        else
+        {
+            <button class="button_product_chiTiet">Hết hàng</button>
+        }
+
+        <div class="chiTietSanPham_right_mota">
+            <span>Mô tả: </span>
+            @Model.MOTA
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "dangnhap";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+}
+
+
+    <div class="login_flex_right_title">
+        <h6>Đăng Nhập</h6>
+    </div>
+    @using (Html.BeginForm("dangnhap", "Users", new { returnUrl = Request.QueryString["returnUrl"] }, FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-10", @class = "create_admin_form" }))
+    {
+        <div class="form_field">
+            <label for="" class="name_form_field">Tài khoản : </label>
+            <input type="text" class="textfile" name="tendn" id="taikhoan">
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Mật khẩu : </label>
+            <input type="password" class="textfile" id="matkhau" name="matkhau">
+            <span class="error_message"></span>
+        </div>
+        if (Session["LoginSai"] != null)
+        {
+            <h4 class="error_message" style="font-size:16px; text-align:start">@Session["LoginSai"]</h4>
+        }
+        <input type="submit" value="Đăng Nhập" class="button_add_admin" style="width: 150px" />
+        <a href="@Url.Action("QuenMK","Users")" class="qmk" style="display: block; margin-left: 10px; color: black">Quên mật khẩu?</a>
+        <a href="@Url.Action("dangky","Users")" style="text-decoration: none; color:black">
+            <input type="button" value="Tạo Tài Khoản" class="button_add_admin" style="width: 150px; margin-bottom: 50px" />
+        </a>
+    }
+    
+<script src="~/assest/js/app.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mong muốn của chúng ta
+        Validator({
+            form: '#form-10',
+            formGroupSelector: '.form_field',
+            errorSelector: '.error_message',
+            rules: [
+                Validator.isRequired('#taikhoan', 'Vui lòng nhập tài khoản!'),
+                Validator.isRequired('#matkhau', 'Vui lòng nhập mật khẩu!'),
+            ],
+            onSubmit: function (data) {
+                // Call API
+                //console.log(data);
+            }
+        });
+    });
+</script>
+

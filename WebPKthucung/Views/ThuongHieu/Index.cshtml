@@ -1,0 +1,72 @@
+﻿@using PagedList.Mvc;
+@model PagedList.PagedList<WebPKthucung.Models.THUONGHIEU>
+@{
+    ViewBag.Title = "Danh sách thương hiệu";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    string hienthi = "";
+}
+
+<div class="table_header">
+    <div class="add_admin">
+        <a href="@Url.Action("Create","ThuongHieu")">
+            <i class="fa-solid fa-user-plus"></i>
+            <div class="add_title">
+                Thêm thương hiệu
+            </div>
+        </a>
+    </div>
+</div>
+<table class="table_dsadmin">
+    <thead>
+        <tr>
+            <th style="width: 65px;">Mã thương hiệu</th>
+            <th style="width: 120px;">Tên thương hiệu</th>
+            <th style="width: 150px;">Logo</th>
+            <th style="width: 80px;">Hiển thị</th>
+            <th style="width: 80px;">Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MATH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TENTH)
+                </td>
+                <td>
+                    <img src="@Url.Content("~/assest/img/thuong_hieu/" + item.LOGO)" alt="" style="width: 231px; height: 74px; ">
+                </td>
+                <td>
+                    @if( item.ANHIEN == true)
+                    {
+                        hienthi = "Logo hiển thị";
+                    } else
+                    {
+                        hienthi = "Logo ẩn";
+                    }
+                    @hienthi
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit","ThuongHieu", new { id = item.MATH })"><i class="fa-solid fa-pen-to-square edit"></i></a>
+                    <a href="@Url.Action("Delete","ThuongHieu", new { id = item.MATH })"> <i class="fa-solid fa-xmark remove"></i></a>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+<ul class="page">
+    @if (Model.PageCount > 1)
+    {
+        for (int i = 1; i <= Model.PageCount; i++)
+        {
+            <li>
+                <a href="@Url.Action("Index", new { page = i })" class="@((i == Model.PageNumber) ? "page_button page_button_active" : "page_button")">@i</a>
+            </li>
+        }
+    }
+</ul>

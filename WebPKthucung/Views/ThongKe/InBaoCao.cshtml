@@ -1,0 +1,135 @@
+﻿@{
+    ViewBag.Title = "PrintList1";
+    Layout = null;
+    int i = 0;
+    int y = 0; 
+}
+<div style="display: flex; justify-content: center">
+    <div>
+        <link href="~/Content/print.css" rel="stylesheet" />
+        <title>Bản in</title>
+        <table id='tb_main_title' style='border-collapse: collapse;' name='tb_main_title' width='700' class="table-print-title">
+            <tr>
+                <th align='left' class='bold main_title'>
+                    CÔNG TY TNHH PADDYSHOP
+                </th>
+            </tr>
+            <tr>
+                <th align='center' class='bold main_title' style='height:35px'>
+                    BÁO CÁO DOANH THU
+                </th>
+            </tr>
+        </table>
+        <br />
+        <table id='tb_main_body' style='border-collapse: collapse;' name='tb_main_body' width='700' class="table-print" border="1">
+            <tr>
+                <th>
+                    STT
+                </th>
+                <th>
+                    Thời gian
+                </th>
+                <th>
+                    Mã đơn hàng
+                </th>
+                <th>
+                    Mã sản phẩm
+                </th>
+                <th align="center">
+                    Tên sản phẩm
+                </th>
+                <th>
+                    Số lượng bán
+                </th>
+                <th>
+                    Đơn giá bán
+                </th>
+                <th>
+                    Thành Tiền
+                </th>
+            </tr>
+            @foreach (var item in ViewBag.Baocao)
+            {
+                <tr>
+                    <td align="center">
+                        @{i++;}
+                        @i
+                    </td>
+                    <td>
+                        @item.NgayBan
+                    </td>
+                    <td>
+                        @item.MADH
+                    </td>
+                    <td>
+                        @item.maSanPham
+                    </td>
+                    <td>
+                        @item.TenSanPham
+                    </td>
+                    <td>
+                        @item.SoLuongBan
+                    </td>
+                    <td>
+                        @string.Format("{0:#,##0}", item.DonGiaBan) đ
+                    </td>
+                    <td>
+                        @string.Format("{0:#,##0}", item.DonGiaBan) đ
+                    </td>
+                </tr>
+            }
+        </table>
+        <table id='tb_main_body' style='border-collapse: collapse; margin-top:40px; max-width:200px' name='tb_main_body' width='700' class="table-print" border="1">
+            <tr>
+                <th>
+                    STT
+                </th>
+                <th>
+                    Thời gian
+                </th>
+                <th>
+                    Doanh thu
+                </th>
+
+            </tr>
+            @foreach (var item in ViewBag.tongTienTheoThangNam)
+            {
+                <tr style="height:40px">
+                    <td>
+                        @{y++;}
+                        @y
+                    </td>
+                    <td>
+                        @item.ThangBan.ToString("MM/yyyy")
+                    </td>
+                    <td>
+                        @string.Format("{0:#,##0}", item.TongTien) đ
+                    </td>
+
+                </tr>
+            }
+        </table>
+        <div style="display: flex; justify-content: end; font-size: 20px">
+            <h6>Tổng doanh thu từ @ViewBag.thangbatdau/@ViewBag.nambatdau đến @ViewBag.thangketthuc/@ViewBag.namketthuc là: @string.Format("{0:#,##0}", @ViewBag.TongDoanhThu) đ</h6>
+        </div>
+        @{
+            var ngayIn = " ngày " + DateTime.Now.Day.ToString() + " tháng " + DateTime.Now.Month.ToString() + " năm " + DateTime.Now.Year.ToString();
+        }
+        <table id='tb_footer' name='tb_footer' width='700' border="0" class="fixheader">
+            <tr>
+                <td align='left' width='30%'></td>
+                <td align='center' width='30%'></td>
+                <td align='center' class='sign italic'>
+                    Khánh Hòa, @ngayIn
+                </td>
+            </tr>
+            <tr>
+                <td align='center' width='30%' class='bold'>Giám đốc</td>
+                <td align='center' width='30%' class='bold'>Kế toán</td>
+                <td align='center' class='bold'>Người lập danh sách </td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+

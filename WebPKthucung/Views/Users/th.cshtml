@@ -1,0 +1,9 @@
+﻿
+@foreach (var item in Model)
+{
+    <a href="@Url.Action("SPTheothuonghieu",new { id = item.MATH })">
+        <li>
+            @item.TENTH
+        </li>
+    </a>
+}

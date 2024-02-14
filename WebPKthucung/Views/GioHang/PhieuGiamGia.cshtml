@@ -1,0 +1,28 @@
+﻿@using (Html.BeginForm("PhieuGiamGia", "GioHang",  FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-11" }))
+{
+    <div class="form_field">
+        @{var g = @Session["MaPhieuGiamGia"] as WebPKthucung.Models.PHIEUGIAMGIA;}
+        @if (g != null)
+        {
+            <label for="" class="name_form_field">Phiếu giảm giá : </label>
+            <input type="text" class="textfile" name="code" id="taikhoan" style="width: 100%" value="@g.CODE">
+        }
+        else
+        {
+            <label for="" class="name_form_field">Phiếu giảm giá : </label>
+            <input type="text" class="textfile" name="code" id="taikhoan" style="width: 100%">
+        }
+
+        @if (Session["PhieuGiamGia"] != "Phiếu giảm giá không hợp lệ")
+        {
+
+            <span class="error_message" style="color: lawngreen">@Session["PhieuGiamGia"]</span>
+        }
+        else
+        {
+            <span class="error_message">@Session["PhieuGiamGia"]</span>
+        }
+
+    </div>
+    <input type="submit" value="Áp mã" class="button_add_admin" style="margin-left: 120px; width: 30%" />
+}

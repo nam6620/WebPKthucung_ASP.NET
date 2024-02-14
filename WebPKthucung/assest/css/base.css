@@ -1,0 +1,240 @@
+:root {
+    --with--left: 230px;
+    --main--color: #244cbb;
+    --catalog--color: #f7c947;
+}
+
+*{
+    box-sizing: inherit;
+    /* margin: 0;
+    padding: 0; */
+}
+ /* 100% = 16px */
+html{
+    font-size: 62.5%;
+    line-height: 1.6rem;
+    font-family: 'Asap', sans-serif;
+    box-sizing: border-box;
+    justify-content: center;
+    display: flex;
+
+}
+/* ==============scrol===============*/ 
+/* -- css Scroll-Bar --  */
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+}
+  
+/* background */
+::-webkit-scrollbar-track {
+    background: transparent; 
+}
+
+/* scrollBar */
+::-webkit-scrollbar-thumb {
+    background: transparent; 
+}
+
+/* scrollBar on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--white-color);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+/* ======ANIMATION */
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+@keyframes growth{
+    from{
+        transform: scale(var(--growth-from));
+    }
+    to{
+        transform: scale(var(--growth-to));
+    }
+}
+/* note hover */
+.note_hover{
+    position: absolute;
+    top: -40px;
+    font-size: 1.2rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    font-size: 1.2rem;
+    font-weight: 300;
+    min-width: 60px;
+    right: 50%;
+    text-align: center;
+    border-radius: 4px;
+    transform: translateX(50%);
+    padding: 2px 3px;
+    color: var(--active-color);
+
+}
+.note_hover::before{
+    content: "";
+    position: absolute;
+    border-color: rgba(0, 0, 0, 0.4) transparent transparent transparent;
+    border-width: 5px 5px;
+    border-style: solid;
+    top: 100%;
+    right: 50%;
+    transform: translateX(50%);
+}
+/* btn hover */
+.btn {
+    color: var(--active-color);
+    font-size: 1.8rem;
+    border-radius: 50%;
+    padding: 0;
+    margin: 0;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin: 12px;
+    position: relative;
+}
+.app .icon-pause {
+    display: none;
+  }
+  
+.app.playing .icon-pause {
+    display: inline-block;
+    
+}
+.icon-play{
+    margin-left: 3px;
+}
+.app.playing .icon-play {
+    display: none;
+}
+
+.btn:hover{
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.btn-active{
+    color: var(--praimary-color);
+}
+/* === MODAL ====*/
+.modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    animation: fadeIn linear 0.2s;
+    display: none;
+}
+
+.modal__overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+ 
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal__body{
+    width: 500px;
+    background-color: var(--white-color);
+    margin: auto;
+    position: relative;
+    z-index: 1;
+    border-radius: 5px;
+    --growth-from:0.7;
+    --growth-to: 1;
+    animation: growth linear 0.1s;
+}
+
+/* button style  */
+/* .btn{
+    min-width: 142px;
+    height: 34px;
+    border: 0;
+    border-radius: 3px;
+    font-size: 1.5rem;
+    padding: 0;
+    background-color: var(--white-color);
+    outline: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.6rem;
+}
+.btn.btn--normal:hover{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+.btn.btn--primary{
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+.btn--size-s{
+    height: 32px;
+    font-size: 1.2rem;
+    text-decoration: none;
+} */
+
+/* selection */
+
+.select-input {
+    min-width: 200px;
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 2px;
+    border-radius: 2px;
+    background-color: var(--white-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+.select-input__label{
+    font-size: 1.4rem;
+}
+.select-input__icon{
+    font-size: 1.4rem;
+    color: rgb(131, 131, 131);
+    position: relative;
+    top: 1px;
+}
+.select-input__list{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 25px;
+    border-radius: 2px;
+    background-color: var(--white-color);
+    padding: 8px 16px;
+    list-style: none;
+    display: none;
+    z-index: 1;
+}
+
+.select-input__link{
+    font-size: 1.4rem;
+    color: var(--text-color);
+    text-decoration: none;
+    display: block;
+    padding: 4px 0;
+
+}
+.select-input__link:hover{
+    color: var(--primary-color);
+}
+.select-input:hover .select-input__list{
+    display: block;
+}
+
+.hover:hover{
+    opacity: 0.8;
+}

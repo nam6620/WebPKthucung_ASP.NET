@@ -1,0 +1,50 @@
+﻿@model WebPKthucung.Models.MAUSAC
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="create_admin">
+    <h1 class="Title_Admin_create_form">Chỉnh sửa thương hiệu</h1>
+    <p class="Notification_create_form">Vui lòng điền thông tin bên dưới</p>
+    @using (Html.BeginForm("Edit", "MauSac", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-2", @class = "create_admin_form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form_field">
+            <label for="" class="name_form_field">Mã màu sắc : </label>
+            <input type="text" class="textfile" readonly value="@Model.MAMAUSAC" name="MAMAUSAC">
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Tên màu sắc : </label>
+            <input type="text" class="textfile" id="mausac" name="TENMAUSAC" value="@Model.TENMAUSAC">
+            <span class="error_message"></span>
+        </div>
+        <div class="form_field">
+            <label for="" class="name_form_field">Tình trạng hiển thị : </label>
+            <div class="check_anhien">
+                @if (Model.ANHHIEN == true)
+                {
+                    <div class="show_anhien_radio">
+                        <input type="radio" name="ANHIEN" value="True" checked class="check_anhien_radio"> Hiển thị 
+                    </div>
+                    <div class="show_anhien_radio">
+                        <input type="radio" name="ANHIEN" value="False" class="check_anhien_radio"> Ẩn 
+                    </div>
+                }
+                else
+                {
+                    <div class="show_anhien_radio">
+                        <input type="radio" name="ANHIEN" value="True" class="check_anhien_radio"> Hiển thị 
+                    </div>
+                    <div class="show_anhien_radio">
+                        <input type="radio" name="ANHIEN" value="False" checked class="check_anhien_radio"> Ẩn 
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="button">
+            <input type="button" value="Chỉnh sửa" class="button_add_admin delete_display_alert" />
+            <a href="@Url.Action("Index","MauSac")"><input type="button" value="Quay lại" class="button_add_admin" /></a>
+        </div>
+    }
+</div>

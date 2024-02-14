@@ -1,0 +1,111 @@
+/* Moblie & tablet */
+@media(max-width: 1023px){
+    :root{
+        --left-nav-width:70px;
+    }
+    .hide-on-mobile-tablet{
+        display: none;
+    }
+    .main__nav{
+        background-color: var(--nav-right-background-color);
+    }
+    .logo-img-tablet{
+        display: flex;
+    }
+    .side__bar-item-active .side__bar-after-right{
+        display: none;
+    }
+    .side__bar-item:hover .side__bar-after-right{
+        display: none;
+    }
+    .logo{
+    justify-content: center;
+    }
+    .library:hover .library-icons{
+        display: none;
+    }
+    .library-items:hover .library-items-icon-active{
+        display: none;
+    }
+    .library-items{
+        padding: 8px 25px;
+    }
+    .side__bar-item{
+        padding: 15px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .side__bar-item-active{
+        height: 100%;
+        border: none;
+    }
+    .side__bar-after-icon-left{
+        top: 0;
+        padding: 0;
+    }
+    .library-item-img{
+        margin: 0;
+    }
+    .content{
+        padding-right: 29px;
+        padding-left: 29px;
+    }
+    .header{
+        padding-right: 29px;
+        padding-left: 29px;
+    }
+    .slider__volume{
+        position: absolute;
+        top: -30px;
+        right: 10%;
+        width: 70px;
+        transform: translateX(50%);
+        width: 100px;
+        display: none;
+    }
+    .control__volume-icon:hover .volume__notice{
+        display: none;
+    }
+    .control__volume-icon:hover .slider__volume{
+        display: block;
+    }
+    .dot__icon{
+        display: none;
+    }
+    .showsong__icons{
+        padding-left: 10px;
+    }
+}
+/* tablet */
+@media(min-width: 740px) and (max-width: 1023px){
+    .hide-on-tablet{
+        display: none;
+    }
+    .personal__nav-playlist-title{
+        justify-content: space-between;
+    }
+    .personal__nav-playlist--songlist-item{
+        justify-content: space-between;
+    }
+    .header__right-download{
+        display: none;
+    }
+    
+}
+
+/* Mobile */
+@media(max-width: 739px){
+    .hide-on-mobile{
+        display: none;
+    }
+    .personal__nav-playlist-title{
+        justify-content: space-between;
+    }
+    .personal__nav-playlist--songlist-item{
+        justify-content: space-between;
+    }
+    .mobile-app{
+        display: block;
+    }
+}
